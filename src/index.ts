@@ -145,6 +145,10 @@ function isOffscreen(el: Element): boolean {
 function observePosition(el: Element) {
   const oldObserver = intersections.get(el)
   oldObserver?.disconnect()
+  if (!el.isConnected) {
+    intersections.delete(el)
+    return
+  }
   let rect = coords.get(el)
   let invocations = 0
   const buffer = 5
